@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 
-from movies.views import index
+from movies.views import MooviewListView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index)
-]
+    path('', MooviewListView.as_view(), name='movie-list'),
+    path('<int:page>', MooviewListView.as_view(), name='movie-list-page')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

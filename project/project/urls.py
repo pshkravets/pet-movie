@@ -19,11 +19,12 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from movies.views import MooviewListView
+from movies.views import MoovieListView, MoovieDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MooviewListView.as_view(), name='movie-list'),
-    path('<int:page>', MooviewListView.as_view(), name='movie-list-page'),
+    path('', MoovieListView.as_view(), name='movie-list'),
+    path('<int:page>', MoovieListView.as_view(), name='movie-list-page'),
+    path('detail/<int:id>', MoovieDetailView.as_view(), name='movie-detail'),
     path('users/', include('users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

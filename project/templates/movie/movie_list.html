@@ -99,17 +99,41 @@
 {% endblock %}
 
 {% block content %}
+
 <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>
+        <H1> Popular moovies</H1>
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+      <div class="col-12">
+        <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+        <div class="input-group">
+          <div class="input-group-text">@</div>
+          <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+        </div>
       </div>
-    </div>
+
+      <div class="col-12">
+        <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+        <select class="form-select" id="inlineFormSelectPref">
+          <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+          <label class="form-check-label" for="inlineFormCheck">
+            Remember me
+          </label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
   </section>
 
   <div class="album py-5 bg-body-tertiary">
@@ -117,10 +141,11 @@
 <!--      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">-->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
         {% for film in object_list%}
+        <a href="{% url 'movie-detail' film.id %}">
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-<!--            <img src="{{ film.poster_path }}" class="bd-placeholder-img card-img-top">-->
+<!--            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
+            <img src="https://image.tmdb.org/t/p/w500{{film.poster_path}}" class="bd-placeholder-img card-img-top">
             <div class="card-body">
               <p class="card-text">{{ film.title }}</p>
               <div class="d-flex justify-content-between align-items-center">
@@ -128,11 +153,12 @@
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
-                <small class="text-body-secondary">{{ page }}</small>
+                <small class="text-body-secondary">{{ film.id }}</small>
               </div>
             </div>
           </div>
         </div>
+        </a>
         {% endfor %}
       </div>
     </div>

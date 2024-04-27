@@ -152,4 +152,3 @@ LOGIN_URL = 'login_user'
 LOGIN_REDIRECT_URL = 'movie-list'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login_user'
-

@@ -101,37 +101,17 @@
 {% block content %}
 
 <section class="py-5 text-center container">
-        <H1> Popular moovies</H1>
-        <form class="row row-cols-lg-auto g-3 align-items-center">
-      <div class="col-12">
-        <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
-        <div class="input-group">
-          <div class="input-group-text">@</div>
-          <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
-        </div>
-      </div>
-
-      <div class="col-12">
-        <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-        <select class="form-select" id="inlineFormSelectPref">
-          <option selected>Choose...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-          <label class="form-check-label" for="inlineFormCheck">
-            Remember me
-          </label>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+    </br>
+    </br>
+    </br>
+        <H1> Popular movies</H1>
+    </br>
+    </br>
+        <form class="row row-cols-lg-auto g-3 align-items-center" method="get">
+      <div class="input-group mb-3">
+<!--          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">-->
+          {{ form.search_field }}
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
       </div>
     </form>
   </section>
@@ -150,10 +130,15 @@
               <p class="card-text">{{ film.title }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+
                 </div>
-                <small class="text-body-secondary">{{ film.id }}</small>
+                <small class="text-body-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                      <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                    </svg>
+                        {{ film.vote_average|floatformat:"-1" }}
+                </small>
+
               </div>
             </div>
           </div>
@@ -164,6 +149,7 @@
     </div>
   </div>
 
+{% if pagination %}
 <nav aria-label="...">
   <ul class="pagination justify-content-center">
 
@@ -208,4 +194,5 @@
     {% endif %}
   </ul>
 </nav>
+{% endif %}
 {% endblock %}

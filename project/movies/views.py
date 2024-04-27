@@ -3,24 +3,29 @@ import requests
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
+from .forms import SearchMovieForm
+from .utils import get_search_list
+from project.settings import API_KEY_TMDB
+
 
 class MoovieListView(ListView):
     template_name = 'movie/movie_list.html'
 
     def get_queryset(self):
+        search = self.request.GET.get('search_field')
         page = 1
         if 'page' in self.kwargs:
             page = self.kwargs['page']
-        url = f"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}"
-        headers = {
-            "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZTU5NGUzOWZlNGYwZmI0NzcwYzc5OWZkNTUxYzE2ZCIsInN1YiI6IjY2MWVhNDEzM2M0MzQ0MDE3YzAzMjc5NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EHbcVCrBYDitzJskmX2t8LHJ1sxieOBWftpEl2Xr7iI"
-        }
-        result = requests.get(url, headers=headers).json()['results']
-        return result
+        response = get_search_list(search_string=search, page=page)
+        print(len(response['results']))
+        return response['results']
 
     def get_context_data(self):
         context = super().get_context_data()
+        context['pagination'] = True
+        print(self.request.GET.get('search_field'))
+        if self.request.GET.get('search_field') != None and self.request.GET.get('search_field') != '':
+            context['pagination'] = False
         page = 1
         if 'page' in self.kwargs:
             page = self.kwargs['page']
@@ -29,6 +34,7 @@ class MoovieListView(ListView):
         context['previous_previous_page'] = page - 2
         context['next_page'] = page + 1
         context['next_next_page'] = page + 2
+        context['form'] = SearchMovieForm(self.request.GET)
         return context
 
 

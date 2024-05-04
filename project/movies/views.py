@@ -17,13 +17,11 @@ class MoovieListView(ListView):
         if 'page' in self.kwargs:
             page = self.kwargs['page']
         response = get_search_list(search_string=search, page=page)
-        print(len(response['results']))
         return response['results']
 
     def get_context_data(self):
         context = super().get_context_data()
         context['pagination'] = True
-        print(self.request.GET.get('search_field'))
         if self.request.GET.get('search_field') != None and self.request.GET.get('search_field') != '':
             context['pagination'] = False
         page = 1

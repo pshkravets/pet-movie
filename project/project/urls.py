@@ -19,7 +19,9 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView
+
 from movies.views import MoovieListView, MoovieDetailView
+from discusion.views import DiscusionListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +29,6 @@ urlpatterns = [
     path('<int:page>', MoovieListView.as_view(), name='movie-list-page'),
     path('detail/<int:id>', MoovieDetailView.as_view(), name='movie-detail'),
     path('users/', include('users.urls')),
-    path('about/', TemplateView.as_view(template_name='about.html'), name='about')
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('discussion/', DiscusionListView.as_view(), name='discussion')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

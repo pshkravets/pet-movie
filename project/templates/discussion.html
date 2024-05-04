@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block head %}
 <script src="{% static 'js/color-modes.js' %}"></script>
 
@@ -93,6 +94,7 @@
 
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
+
       }
     </style>
 
@@ -102,9 +104,43 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="form-floating">
-    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-    <label for="floatingTextarea2">Comments</label>
-    </div>
+    {% for discuss in list %}
+        {% if discuss.author.email == request.user.email %}
+            <figure>
+              <blockquote class="blockquote">
+                <H6>{{ discuss.text }}</H6>
+              </blockquote>
+              <figcaption class="blockquote-footer">
+                  <cite title="Source Title"> By: me </cite></br>
+                  <cite title="Source Title"> {{ discuss.time_creation }} </cite>
+              </figcaption>
+            </figure>
+        {% else %}
+            <figure class="text-end">
+              <blockquote class="blockquote">
+                <H6>{{ discuss.text }}</H6>
+              </blockquote>
+              <figcaption class="blockquote-footer">
+                  <cite title="Source Title">By: {{ discuss.author }}</cite></br>
+                  <cite title="Source Title"> {{ discuss.time_creation }}</cite>
+              </figcaption>
+            </figure>
+        {% endif %}
+    {% endfor %}
+    {% if request.user.is_authenticated %}
+        <footer class="pt-3 mt-4 text-body-secondary border-top">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-floating">
+                    <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">Leave here your comment</label>
+                        {{ form.comment }}
+<!--                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>-->
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </footer>
+    {% endif %}
 </div>
 {% endblock %}

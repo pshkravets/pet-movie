@@ -106,7 +106,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-4 shadow">
       <div class="modal-header p-5 pb-4 border-bottom-0">
-        <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
+        <h1 class="fw-bold mb-0 fs-2">Login for free</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -123,7 +123,7 @@
               {{ form.password }}
             <label for="floatingPassword">Password</label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Login</button>
 <!--          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>-->
           {% if messages %}
               {% for message in messages %}
@@ -141,14 +141,6 @@
             Log in with Google
           </button>
             </a>
-          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
-            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
-            Sign up with Facebook
-          </button>
-          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-            <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"/></svg>
-            Sign up with GitHub
-          </button>
         </form>
       </div>
     </div>
